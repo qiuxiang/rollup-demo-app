@@ -1,5 +1,9 @@
 {
   "private": true,
+  "scripts": {
+    "dev": "rollup -cw",
+    "build": "rollup -c"
+  },
   "dependencies": {
     "antd-mobile": "^2.2.14",
     "nervjs": "^1.4.3"
