@@ -6,16 +6,18 @@
   },
   "dependencies": {
     "antd-mobile": "^2.2.14",
-    "nervjs": "^1.4.3"
+    "mobx": "^5.13.0",
+    "mobx-react": "^6.1.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "devDependencies": {
     "@types/react-dom": "^16.8.5",
     "rollup": "^1.17.0",
-    "rollup-plugin-alias": "^1.5.2",
     "rollup-plugin-commonjs": "^10.0.1",
     "rollup-plugin-css-porter": "^1.0.2",
-    "rollup-plugin-import-alias": "^1.0.10",
     "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-sucrase": "^2.1.0",
     "rollup-plugin-terser": "^5.1.1"
   },

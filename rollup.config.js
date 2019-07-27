@@ -1,6 +1,6 @@
 import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
-import alias from "rollup-plugin-alias";
+import replace from "rollup-plugin-replace";
 import sucrase from "rollup-plugin-sucrase";
 import css from "rollup-plugin-css-porter";
 import { terser } from "rollup-plugin-terser";
@@ -13,10 +13,29 @@ export default [
     output: { format: "iife", file: "dist/vendor.js" },
     plugins: [
       resolve(),
-      commonjs(),
-      alias({
-        react: "node_modules/nervjs/dist/index.js",
-        "react-dom": "node_modules/nervjs/dist/index.js"
+      commonjs({
+        namedExports: {
+          react: [
+            "useState",
+            "useRef",
+            "useMemo",
+            "useEffect",
+            "useCallback",
+            "useDebugValue",
+            "memo",
+            "forwardRef",
+            "createContext",
+            "createElement",
+            "cloneElement",
+            "Children",
+            "Component",
+            "PureComponent"
+          ],
+          "react-dom": ["unstable_batchedUpdates"]
+        }
+      }),
+      replace({
+        "process.env.NODE_ENV": JSON.stringify(production ? "production" : "development")
       }),
       css({ minified: true }),
       production && terser()
@@ -29,9 +48,15 @@ export default [
       sourcemap: true,
       format: "iife",
       file: "dist/main.js",
-      globals: { react: "react", "react-dom": "react", "antd-mobile": "antd" }
+      globals: {
+        react: "react",
+        "react-dom": "reactDom",
+        mobx: "mobx",
+        "mobx-react": "mobxReact",
+        "antd-mobile": "antd"
+      }
     },
     plugins: [sucrase({ production, transforms: ["typescript", "jsx"] }), production && terser()],
-    external: ["react", "react-dom", "antd-mobile"]
+    external: ["react", "react-dom", "mobx", "mobx-react", "antd-mobile"]
   }
 ];
